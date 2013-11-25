@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+import gevent.monkey
+gevent.monkey.patch_all()
+
+
 from requests import ConnectionError, get
 from pyquery import PyQuery as pq
 from urlparse import urlparse
