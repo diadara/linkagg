@@ -35,11 +35,10 @@ def main():
         sys.exit(1)
     url = sys.argv[1]
     selector1 = sys.argv[2]
-    print url, selector1
-    #    selector2 = sys.argv[3]     figure out how to get selectors a
-#                                quated strings
+    selector2 = sys.argv[3]
+
     for i in getlinks(url, selector1):
-        for j in getlinks(i, "#vid_related a"):
+        for j in getlinks(i, selector2):
                 print(j)
 
 if __name__ == '__main__':
