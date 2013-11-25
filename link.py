@@ -3,6 +3,7 @@ from requests import ConnectionError, get
 from pyquery import PyQuery as pq
 from urlparse import urlparse
 import sys
+import gevent
 
 
 def getlinks(url, selector):
@@ -28,11 +29,11 @@ def getlinks(url, selector):
 
 
 def link_helper(root, sno):
-    try:
+    if sno < len(sys.argv):
         links = getlinks(root, sys.argv[sno])
-        for link in links:
-            link_helper(link, sno + 1)
-    except:
+        threads = [gevent.spawn(link_helper, link, sno + 1) for link in links]
+        gevent.joinall(threads)
+    else:
         print root
 
 
