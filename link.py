@@ -27,6 +27,15 @@ def getlinks(url, selector):
     return links
 
 
+def link_helper(root, sno):
+    try:
+        links = getlinks(root, sys.argv[sno])
+        for link in links:
+            link_helper(link, sno + 1)
+    except:
+        print root
+
+
 def main():
     n = len(sys.argv)
     if(n < 3):
@@ -34,12 +43,8 @@ def main():
         for subsequent pages")
         sys.exit(1)
     url = sys.argv[1]
-    selector1 = sys.argv[2]
-    selector2 = sys.argv[3]
+    link_helper(url, 2)
 
-    for i in getlinks(url, selector1):
-        for j in getlinks(i, selector2):
-                print(j)
 
 if __name__ == '__main__':
     main()
